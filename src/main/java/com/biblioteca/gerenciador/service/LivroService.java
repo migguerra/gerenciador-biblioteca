@@ -4,7 +4,7 @@ import com.biblioteca.gerenciador.dto.LivroDTO;
 
 public interface LivroService {
 
-	public LivroDTO savebook(LivroDTO livro);
+	public LivroDTO saveBook(LivroDTO livro);
 
 	public LivroDTO updateBook(LivroDTO livro);
 

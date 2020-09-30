@@ -1,0 +1,62 @@
+package com.biblioteca.gerenciador.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.biblioteca.gerenciador.dto.LivroDTO;
+import com.biblioteca.gerenciador.service.LivroService;
+
+public class LivroController {
+
+	private LivroService service;
+	
+	
+	@GetMapping(value = "/livro/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<LivroDTO> getLivro(@PathVariable("id") Integer id){
+		
+		LivroDTO livroDto = service.getByIdlivro(id);
+		
+		return new ResponseEntity<LivroDTO>(livroDto, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/livro/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<LivroDTO> getByName(@PathVariable("name") String name){
+		
+		LivroDTO userFind = service.getByName(name);
+		
+		return new ResponseEntity<LivroDTO>(userFind, HttpStatus.OK);
+		
+	}
+	
+	@PostMapping(value = "/livro/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<LivroDTO> saveLivro(@RequestBody LivroDTO dto){
+	
+		LivroDTO savedLivro = service.saveBook(dto);
+		
+		return new ResponseEntity<LivroDTO>(savedLivro, HttpStatus.CREATED);
+	}
+	@DeleteMapping(value = "/usuario/{id}")
+	public ResponseEntity<Void> deletelivro(@PathVariable("id") Integer id){
+		
+		service.deleteBook(id);
+		
+		return ResponseEntity.ok().build();
+		
+	}
+	
+	@PutMapping(value = "/usuario", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<LivroDTO> updatedLivro(@RequestBody LivroDTO bookUpdated){
+		
+		LivroDTO updatedLivro = service.updateBook(bookUpdated);
+		
+		return new ResponseEntity<LivroDTO>(updatedLivro, HttpStatus.OK);
+		
+	}
+}	

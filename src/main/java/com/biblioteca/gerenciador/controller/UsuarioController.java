@@ -49,6 +49,7 @@ public class UsuarioController {
 		return new ResponseEntity<UsuarioDTO>(userSaved, HttpStatus.CREATED);
 		
 	}
+	
 	@DeleteMapping(value = "/usuario/{id}")
 	public ResponseEntity<Void> deleteUser(@PathVariable("id") Integer id){
 		
