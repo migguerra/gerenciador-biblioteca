@@ -1,5 +1,7 @@
 package com.biblioteca.gerenciador.service;
 
+import java.util.List;
+
 import com.biblioteca.gerenciador.dto.EmprestimoRequestDTO;
 import com.biblioteca.gerenciador.dto.EmprestimoResponseDTO;
 
@@ -9,11 +11,11 @@ public interface EmprestimoService {
 
 	public EmprestimoResponseDTO updateEmprestimo(EmprestimoRequestDTO emprestimo);
 
-	public EmprestimoResponseDTO getByIdlivro(Integer idLivro);
+	public List<EmprestimoResponseDTO> getByIdlivro(Integer idLivro);
 
 	public EmprestimoResponseDTO getByBookName(String name);
 
-	public EmprestimoResponseDTO getByUser(Integer idUsuario);
+	public List<EmprestimoResponseDTO> getByUser(Integer idUsuario);
 
 	public void deleteEmprestimo(Integer idEmprestimo);
 
