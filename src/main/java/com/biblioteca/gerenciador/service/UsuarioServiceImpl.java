@@ -1,40 +1,75 @@
 package com.biblioteca.gerenciador.service;
 
-import org.springframework.stereotype.Service;
+import java.util.Optional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.biblioteca.gerenciador.dto.UsuarioDTO;
+import com.biblioteca.gerenciador.model.UsuarioEntity;
+import com.biblioteca.gerenciador.repository.UserRepository;
 
-@Service
-public class UsuarioServiceImpl implements UsuarioService  {
+@Component
+public class UsuarioServiceImpl implements UsuarioService {
+
+	@Autowired
+	private UserRepository repository;
+
+	private ModelMapper mapper = new ModelMapper();
 
 	@Override
 	public UsuarioDTO saveUser(UsuarioDTO usuario) {
-		// TODO Auto-generated method stub
-		return null;
+
+		UsuarioEntity dtoConvetedUser = mapper.map(usuario, UsuarioEntity.class);
+
+		UsuarioEntity userSaved = repository.save(dtoConvetedUser);
+
+		UsuarioDTO entityConverted = mapper.map(userSaved, UsuarioDTO.class);
+
+		return entityConverted;
+
 	}
 
 	@Override
 	public UsuarioDTO updatedUser(UsuarioDTO usuario) {
-		// TODO Auto-generated method stub
-		return null;
+
+		UsuarioEntity dtoConveted = mapper.map(usuario, UsuarioEntity.class);
+
+		UsuarioEntity userUpdated = repository.save(dtoConveted);
+
+		UsuarioDTO entityConverted = mapper.map(userUpdated, UsuarioDTO.class);
+
+		return entityConverted;
+
 	}
 
 	@Override
 	public void deleteUser(Integer idUser) {
-		// TODO Auto-generated method stub
-		
+
+		repository.deleteById(idUser);
+
 	}
 
 	@Override
 	public UsuarioDTO getById(Integer idUser) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Optional<UsuarioEntity> findId = repository.findById(idUser);
+
+		UsuarioDTO entityConverted = mapper.map(findId.get(), UsuarioDTO.class);
+
+		return entityConverted;
 	}
 
 	@Override
 	public UsuarioDTO getByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	} 
+		
+		UsuarioEntity findName = repository.findByName(name);
 
+		UsuarioDTO entityConverted = mapper.map(findName, UsuarioDTO.class);
+		
+		return entityConverted;
+	}
+
+	
 }

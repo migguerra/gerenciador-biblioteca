@@ -23,6 +23,8 @@ public class UsuarioEntity {
 	private String email;
 
 	private String senha;
+	
+	private String name;
 
 	@Column(name = "quantidade_livros")
 	private int quantidadeLivros;
@@ -68,6 +70,14 @@ public class UsuarioEntity {
 
 	public void setEmprestimos(List<EmprestimoEntity> emprestimos) {
 		this.emprestimos = emprestimos;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }
