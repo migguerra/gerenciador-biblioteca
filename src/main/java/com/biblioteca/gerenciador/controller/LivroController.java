@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,8 +33,8 @@ public class LivroController {
 		return new ResponseEntity<LivroDTO>(livroDto, HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/livro/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<LivroDTO> getByName(@PathVariable("name") String name){
+	@GetMapping(value = "/livro", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<LivroDTO> getByName(@RequestHeader("name") String name){
 		
 		LivroDTO userFind = service.getByName(name);
 		
@@ -41,14 +42,14 @@ public class LivroController {
 		
 	}
 	
-	@PostMapping(value = "/livro/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/livro", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<LivroDTO> saveLivro(@RequestBody LivroDTO dto){
 	
 		LivroDTO savedLivro = service.saveBook(dto);
 		
 		return new ResponseEntity<LivroDTO>(savedLivro, HttpStatus.CREATED);
 	}
-	@DeleteMapping(value = "/usuario/{id}")
+	@DeleteMapping(value = "/livro/{id}")
 	public ResponseEntity<Void> deletelivro(@PathVariable("id") Integer id){
 		
 		service.deleteBook(id);
@@ -57,7 +58,7 @@ public class LivroController {
 		
 	}
 	
-	@PutMapping(value = "/usuario", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/livro", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<LivroDTO> updatedLivro(@RequestBody LivroDTO bookUpdated){
 		
 		LivroDTO updatedLivro = service.updateBook(bookUpdated);

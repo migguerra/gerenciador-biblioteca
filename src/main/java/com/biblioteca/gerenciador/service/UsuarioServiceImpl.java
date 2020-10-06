@@ -56,6 +56,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		Optional<UsuarioEntity> findId = repository.findById(idUser);
 
+		if(findId.isEmpty()) {
+			return null;
+		}
+		
 		UsuarioDTO entityConverted = mapper.map(findId.get(), UsuarioDTO.class);
 
 		return entityConverted;

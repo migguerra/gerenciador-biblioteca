@@ -23,7 +23,7 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService service;
 
-	@GetMapping(value = "/usuario/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/usuario/{id}/id", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UsuarioDTO> getUsuario(@PathVariable("id") Integer id) {
 
 		UsuarioDTO usuarioDto = service.getById(id);
@@ -31,7 +31,7 @@ public class UsuarioController {
 		return new ResponseEntity<UsuarioDTO>(usuarioDto, HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/usuario/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/usuario/{name}/name/", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UsuarioDTO> getByName(@PathVariable("name") String name){
 		
 		UsuarioDTO userFind = service.getByName(name);

@@ -40,7 +40,7 @@ public class EmprestimoServiceImpl implements EmprestimoService{
 		Optional<UsuarioEntity> findUser = repositoryUser.findById(idUsuario);
 		Optional<LivroEntity> findLivro = repositoryLivro.findById(IdLivro);
 		
-		//associacao
+		//associacao //a associação e só na hora de criar/salvar
 		dtoConvertedEmprestimo.setUsuario(findUser.get());
 		dtoConvertedEmprestimo.setLivro(findLivro.get());
 				
@@ -50,29 +50,41 @@ public class EmprestimoServiceImpl implements EmprestimoService{
 		
 		return convertedEntity;
 	}
-
-	//a associação e só na hora de criar/salvar
+	
+	
 	@Override
 	public EmprestimoResponseDTO updateEmprestimo(EmprestimoRequestDTO emprestimo) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		EmprestimoEntity dtoConvertedEmprestimo = mapper.map(emprestimo, EmprestimoEntity.class);
+		EmprestimoEntity convertedEntity = repository.save(dtoConvertedEmprestimo);
+		EmprestimoResponseDTO convertedDto = mapper.map(convertedEntity, EmprestimoResponseDTO.class);
+		
+		return convertedDto;
 	}
 
 	@Override
 	public List<EmprestimoResponseDTO> getByIdlivro(Integer idLivro) {
-		// TODO Auto-generated method stub
-		return null;
+		List<EmprestimoEntity> emprestimoIdLivro = repository.findByLivroIdLivro(idLivro);
+		List<EmprestimoResponseDTO> listaEmprestidoLivro = new ArrayList<>();
+		
+		for(EmprestimoEntity interacao : emprestimoIdLivro) {
+			EmprestimoResponseDTO converteEntity = mapper.map(interacao, EmprestimoResponseDTO.class);
+			listaEmprestidoLivro.add(converteEntity);
+		}
+		return listaEmprestidoLivro;
 	}
 
 	@Override
 	public EmprestimoResponseDTO getByBookName(String name) {
-	
-		return null;
+		boolean status = true;
+		EmprestimoRepository emprestimoName = repository.findByStatusAndLivroNome(status, name);
+		EmprestimoResponseDTO convertedEntity = mapper.map(emprestimoName, EmprestimoResponseDTO.class);
+		return convertedEntity;
 	}
 
 	@Override
 	public List<EmprestimoResponseDTO> getByUser(Integer idUsuario) {
-		List<EmprestimoEntity> listaUsuario = repository.findByUserId(idUsuario);
+		List<EmprestimoEntity> listaUsuario = repository.findByUsuarioIdUsuario(idUsuario);
 		List<EmprestimoResponseDTO> listaEmprestimo = new ArrayList<>();
 		
 		for (EmprestimoEntity interacao : listaUsuario) {
@@ -86,7 +98,14 @@ public class EmprestimoServiceImpl implements EmprestimoService{
 
 	@Override
 	public void deleteEmprestimo(Integer idEmprestimo) {
-		// TODO Auto-generated method stub
+		
+		Optional<EmprestimoEntity> findEmprestimo = repository.findById(idEmprestimo);
+		
+		EmprestimoEntity emprestimoEntity = findEmprestimo.get();
+		
+		emprestimoEntity.setStatus(false);
+		
+		repository.save(emprestimoEntity);
 		
 	}
 

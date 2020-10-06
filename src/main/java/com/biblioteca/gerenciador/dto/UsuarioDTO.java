@@ -14,6 +14,8 @@ public class UsuarioDTO implements Serializable {
 	@JsonProperty(value = "id")
 	private Integer idUsuario;
 
+	private String name;
+	
 	private String email;
 
 	private String senha;
@@ -51,6 +53,14 @@ public class UsuarioDTO implements Serializable {
 
 	public void setQuantidadeLivros(int quantidadeLivros) {
 		this.quantidadeLivros = quantidadeLivros;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

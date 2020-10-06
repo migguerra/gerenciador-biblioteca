@@ -8,8 +8,10 @@ import com.biblioteca.gerenciador.model.EmprestimoEntity;
 
 public interface EmprestimoRepository extends JpaRepository<EmprestimoEntity, Integer>{
 
-	List<EmprestimoEntity> findByUserId(Integer usuario);
-	EmprestimoEntity findByStatusAndLivroNome(boolean status, String name);
+	List<EmprestimoEntity> findByLivroIdLivro(Integer idLivro);
+	List<EmprestimoEntity> findByUsuarioIdUsuario(Integer usuario);
+	
+	EmprestimoRepository findByStatusAndLivroNome(boolean status, String name);
 	
 	
 	

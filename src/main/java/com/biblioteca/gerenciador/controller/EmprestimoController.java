@@ -13,17 +13,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.biblioteca.gerenciador.dto.EmprestimoRequestDTO;
 import com.biblioteca.gerenciador.dto.EmprestimoResponseDTO;
 import com.biblioteca.gerenciador.service.EmprestimoService;
-
+@RestController
+@RequestMapping("/api/v1")
 public class EmprestimoController {
 	
 	@Autowired
 	private EmprestimoService service;
 	
-	@GetMapping(value = "/emprestimo/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/emprestimo/{id}/id", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<EmprestimoResponseDTO>> getEmprestimoByBookId (@PathVariable ("id") Integer idBook){
 		
 		List<EmprestimoResponseDTO> listEmprestimo = service.getByIdlivro(idBook);
@@ -32,7 +35,7 @@ public class EmprestimoController {
 	}
 	
 	
-	@GetMapping(value = "/emprestimo/{bookName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/emprestimo/{bookName}/book-name", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<EmprestimoResponseDTO> getEmprestimoByUser (@PathVariable ("bookName") String nomeLivro){
 		
 		EmprestimoResponseDTO emprestimoDto = service.getByBookName(nomeLivro);
@@ -41,7 +44,7 @@ public class EmprestimoController {
 		
 	}
  		
-	@GetMapping(value = "/emprestimo/{idUser}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/emprestimo/{idUser}/id-user", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<EmprestimoResponseDTO>> getEmprestimoByUser (@PathVariable ("idUser") Integer idUser){
 		
 		List<EmprestimoResponseDTO> emprestimoDto = service.getByUser(idUser);

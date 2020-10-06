@@ -16,6 +16,10 @@ import javax.persistence.Table;
 @Table(name = "emprestimo")
 public class EmprestimoEntity {
 
+	public EmprestimoEntity() {
+		this.status = true;
+	}
+	
 	@Id
 	@Column(name = "id_emprestimo")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,6 +43,14 @@ public class EmprestimoEntity {
 	@JoinColumn(name = "id_livro")
 	private LivroEntity livro;
 
+	public Integer getIdEmprestimo() {
+		return idEmprestimo;
+	}
+
+	public void setIdEmprestimo(Integer idEmprestimo) {
+		this.idEmprestimo = idEmprestimo;
+	}
+
 	public Date getDataRetirada() {
 		return dataRetirada;
 	}
@@ -55,32 +67,16 @@ public class EmprestimoEntity {
 		this.dataEntrega = dataEntrega;
 	}
 
-	public Boolean getRenovacao() {
+	public boolean isRenovacao() {
 		return renovacao;
-	}
-
-	public void setRenovacao(Boolean renovacao) {
-		this.renovacao = renovacao;
-	}
-
-	public Boolean getStatus() {
-		return status;
-	}
-
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}
-
-	public Integer getIdEmprestimo() {
-		return idEmprestimo;
-	}
-
-	public void setIdEmprestimo(Integer idEmprestimo) {
-		this.idEmprestimo = idEmprestimo;
 	}
 
 	public void setRenovacao(boolean renovacao) {
 		this.renovacao = renovacao;
+	}
+
+	public boolean isStatus() {
+		return status;
 	}
 
 	public void setStatus(boolean status) {
@@ -102,5 +98,7 @@ public class EmprestimoEntity {
 	public void setLivro(LivroEntity livro) {
 		this.livro = livro;
 	}
+
+
 
 }
